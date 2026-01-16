@@ -24,7 +24,7 @@ interface ProductWithGroup {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,RouterModule,FormsModule,ProductCardComponent,LoaderComponent,ModalComponent],
+  imports: [CommonModule,RouterModule,FormsModule,ProductCardComponent,ModalComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit{
   categories: Category[] = [];
   trendingProducts: ProductWithGroup[] = [];
   popularProducts: ProductWithGroup[] = [];
-  isLoading = true;
+  isLoading = false;
   searchQuery = '';
   
   selectedProduct: ProductWithGroup | null = null;
@@ -53,16 +53,11 @@ export class HomeComponent implements OnInit{
   }
 
   loadHomeData(): void {
-    this.isLoading = true;
-    
-    // Simuler le chargement des données
-    setTimeout(() => {
-      this.categories = this.getMockCategories();
-      this.trendingProducts = this.getMockProducts('trending');
-      this.popularProducts = this.getMockProducts('popular');
-      this.isLoading = false;
-    }, 1000);
-  }
+  this.categories = this.getMockCategories();
+  this.trendingProducts = this.getMockProducts('trending');
+  this.popularProducts = this.getMockProducts('popular');
+  this.isLoading = false;
+}
 
   onSearch(): void {
     if (this.searchQuery.trim()) {

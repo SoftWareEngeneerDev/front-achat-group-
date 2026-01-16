@@ -39,8 +39,10 @@ export class Header implements OnInit{
   }
 
   getUserInitials(): string {
-    if (!this.currentUser) return 'U';
-    return `${this.currentUser.firstName.charAt(0)}${this.currentUser.lastName.charAt(0)}`;
+  if (!this.currentUser || !this.currentUser.firstName || !this.currentUser.lastName) {
+    return 'U';
   }
+  return `${this.currentUser.firstName.charAt(0)}${this.currentUser.lastName.charAt(0)}`;
+}
 
 }
