@@ -1,0 +1,29 @@
+<div class="product-card">
+  <div class="product-badge" *ngIf="getSavingsPercent() > 0">-{{ getSavingsPercent() }}%</div>
+  <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+  <div class="product-info">
+    <h3 class="product-name">{{ product.name }}</h3>
+    <p class="product-description">{{ product.description }}</p>
+    <div class="price-container">
+      <div>
+        <div class="original-price">{{ product.originalPrice | number:'1.0-0' }} FCFA</div>
+        <div class="group-price">{{ product.groupPrice | number:'1.0-0' }} FCFA</div>
+      </div>
+      <div class="savings">-{{ product.savings | number:'1.0-0' }} FCFA</div>
+    </div>
+    <div class="group-info" *ngIf="group">
+      <div class="group-count">
+        <i class="fas fa-users"></i>
+        <span>{{ group.currentMembers }}/{{ group.maxMembers }} personnes</span>
+      </div>
+      <span class="time-left">{{ getTimeLeft() }}</span>
+    </div>
+    <div class="group-progress" *ngIf="group">
+      <div class="progress-bar" [style.width.%]="getProgress()"></div>
+    </div>
+    <div class="product-actions">
+      <button class="product-btn btn-view" (click)="onViewDetails()">Voir détails</button>
+      <button class="product-btn btn-join" (click)="onJoinGroup()">Rejoindre</button>
+    </div>
+  </div>
+</div>

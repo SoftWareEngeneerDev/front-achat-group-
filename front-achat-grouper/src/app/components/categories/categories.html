@@ -1,0 +1,21 @@
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Catégories</h1>
+    <p class="page-subtitle">Parcourez nos produits par catégories</p>
+  </div>
+</div>
+
+<div class="container categories-page">
+  <div class="categories-grid">
+    <a *ngFor="let category of categories" 
+       [routerLink]="['/categories', category.id]" 
+       class="category-card">
+      <div class="category-icon">
+        <i [class]="category.icon"></i>
+      </div>
+      <div class="category-name">{{ category.name }}</div>
+      <div class="category-count">{{ category.productCount }} produits</div>
+      <div class="category-description">{{ category.description }}</div>
+    </a>
+  </div>
+</div>

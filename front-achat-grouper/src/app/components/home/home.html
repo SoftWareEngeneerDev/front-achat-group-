@@ -1,0 +1,179 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">Économisez jusqu'à 40% avec les achats groupés</h1>
+          <p class="hero-subtitle">Rejoignez des groupes d'achat pour bénéficier de prix réduits sur des milliers de produits. Plus le groupe est grand, plus l'économie est importante !</p>
+          <div class="hero-buttons">
+            <a routerLink="/products" class="btn btn-primary btn-large">Voir les offres</a>
+            <a routerLink="/comment-ca-marche" class="btn btn-outline btn-large">Comment ça marche</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Groupe d'achat">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <div class="container">
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Rechercher un produit, une catégorie..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()">
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-th-large"></i> Parcourir par catégories</h2>
+      <div class="categories-grid">
+        <a *ngFor="let category of categories" 
+           [routerLink]="['/categories', category.id]" 
+           class="category-card">
+          <div class="category-icon">
+            <i [class]="category.icon"></i>
+          </div>
+          <div class="category-name">{{ category.name }}</div>
+          <div class="category-count">{{ category.productCount }} produits</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Products -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-fire"></i> Offres groupées en cours</h2>
+        <a routerLink="/products" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid">
+        <app-product-card 
+          *ngFor="let item of trendingProducts"
+          [product]="item.product"
+          [group]="item.group"
+          (viewDetails)="onViewProductDetails($event)"
+          (joinGroup)="onJoinGroup($event)">
+        </app-product-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title" style="text-align: center;">
+        <i class="fas fa-play-circle"></i> Comment ça marche ?
+      </h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Choisissez un produit</h3>
+          <p class="step-description">Parcourez nos produits disponibles en achats groupés. Chaque produit affiche le prix original et le prix de groupe.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Rejoignez un groupe</h3>
+          <p class="step-description">Rejoignez un groupe d'achat existant ou créez-en un nouveau. Plus le groupe est nombreux, plus le prix baisse !</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Attendez le quota</h3>
+          <p class="step-description">Une fois le nombre minimum de participants atteint, la commande groupée est validée et le prix réduit est appliqué.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Recevez votre produit</h3>
+          <p class="step-description">Votre commande est traitée et vous recevez votre produit au prix réduit. L'économie est réalisée !</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.activeGroups }}</div>
+          <div class="stat-label">Groupes actifs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.satisfiedMembers }}</div>
+          <div class="stat-label">Membres satisfaits</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.totalSavings }}</div>
+          <div class="stat-label">FCFA économisés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.successRate }}</div>
+          <div class="stat-label">Groupes réussis</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Products -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-star"></i> Produits populaires</h2>
+        <a routerLink="/products" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid">
+        <app-product-card 
+          *ngFor="let item of popularProducts"
+          [product]="item.product"
+          [group]="item.group"
+          (viewDetails)="onViewProductDetails($event)"
+          (joinGroup)="onJoinGroup($event)">
+        </app-product-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loader -->
+  <app-loader *ngIf="isLoading" [fullscreen]="true" message="Chargement..."></app-loader>
+
+  <!-- Product Details Modal -->
+  <app-modal 
+    [isOpen]="showProductModal"
+    [title]="modalTitle"
+    (close)="closeProductModal()">
+    <div *ngIf="selectedProduct" class="modal-product-content">
+      <img [src]="selectedProduct.product.imageUrl" [alt]="selectedProduct.product.name" class="modal-image">
+      <div class="modal-product-info">
+        <p class="modal-description">{{ selectedProduct.product.description }}</p>
+        <div class="modal-price-info">
+          <div class="price-row">
+            <span>Prix original:</span>
+            <span>{{ selectedProduct.product.originalPrice | number:'1.0-0' }} FCFA</span>
+          </div>
+          <div class="price-row">
+            <span>Prix en groupe:</span>
+            <span class="group-price">{{ selectedProduct.product.groupPrice | number:'1.0-0' }} FCFA</span>
+          </div>
+          <div class="price-row">
+            <span>Économie:</span>
+            <span>{{ selectedProduct.product.savings | number:'1.0-0' }} FCFA</span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-large" (click)="onJoinGroup(selectedProduct.product.id)">
+          Rejoindre le groupe
+        </button>
+      </div>
+    </div>
+  </app-modal>
+</div>

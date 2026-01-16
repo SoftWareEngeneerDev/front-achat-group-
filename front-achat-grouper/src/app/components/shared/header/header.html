@@ -1,0 +1,75 @@
+<header>
+  <div class="container">
+    <div class="header-top">
+      <a routerLink="/" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="logo-text">Group<span>Buy</span></div>
+      </a>
+
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="nav-links" [class.show]="showMobileMenu">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
+        <a routerLink="/categories" routerLinkActive="active" class="nav-link">Catégories</a>
+        <a routerLink="/products" routerLinkActive="active" class="nav-link">Produits</a>
+        <a routerLink="/comment-ca-marche" routerLinkActive="active" class="nav-link">Comment ça marche</a>
+      </div>
+
+      <div class="header-right">
+        <div class="icon-container" routerLink="/cart">
+          <i class="fas fa-shopping-cart"></i>
+          <div class="notification-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</div>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-bell"></i>
+          <div class="notification-badge" *ngIf="notificationsCount > 0">{{ notificationsCount }}</div>
+        </div>
+        
+        <div class="user-profile" *ngIf="currentUser" (click)="toggleUserDropdown()">
+          <div class="user-avatar">{{ getUserInitials() }}</div>
+          <div class="user-name">{{ currentUser.firstName }}</div>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+
+        <a *ngIf="!currentUser" routerLink="/auth/login" class="btn btn-primary">Connexion</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Dropdown -->
+  <div class="user-dropdown" [class.show]="showUserDropdown" *ngIf="currentUser">
+    <div class="dropdown-header">
+      <div class="user-avatar">{{ getUserInitials() }}</div>
+      <div class="user-info">
+        <h4>{{ currentUser.firstName }} {{ currentUser.lastName }}</h4>
+        <p>{{ currentUser.email }}</p>
+      </div>
+    </div>
+    <div class="dropdown-menu">
+      <a routerLink="/profile" class="dropdown-item">
+        <i class="fas fa-user"></i>
+        <span>Mon profil</span>
+      </a>
+      <a routerLink="/dashboard/member" class="dropdown-item">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Mes commandes</span>
+      </a>
+      <a routerLink="/my-groups" class="dropdown-item">
+        <i class="fas fa-users"></i>
+        <span>Mes groupes</span>
+      </a>
+      <a routerLink="/profile" class="dropdown-item">
+        <i class="fas fa-cog"></i>
+        <span>Paramètres</span>
+      </a>
+      <a (click)="logout()" class="dropdown-item">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,58 @@
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Mon panier</h1>
+    <p class="page-subtitle">Vos produits en attente de groupe</p>
+  </div>
+</div>
+
+<div class="container cart-page">
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <i class="fas fa-shopping-cart"></i>
+    <h2>Votre panier est vide</h2>
+    <p>Découvrez nos offres groupées et commencez à économiser !</p>
+    <a routerLink="/products" class="btn btn-primary">Voir les produits</a>
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="cart-content">
+    <div class="cart-items">
+      <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+        <img [src]="item.imageUrl" [alt]="item.name" class="cart-item-image">
+        <div class="cart-item-details">
+          <h4>{{ item.name }}</h4>
+          <p class="cart-item-price">{{ item.price | number:'1.0-0' }} FCFA</p>
+        </div>
+        <div class="cart-item-actions">
+          <div class="quantity-control">
+            <button class="quantity-btn" (click)="updateQuantity(i, item.quantity - 1)">-</button>
+            <input type="number" class="quantity-input" [value]="item.quantity" readonly>
+            <button class="quantity-btn" (click)="updateQuantity(i, item.quantity + 1)">+</button>
+          </div>
+          <button class="remove-item" (click)="removeItem(i)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Résumé de la commande</h3>
+      <div class="summary-row">
+        <span>Sous-total</span>
+        <span>{{ subtotal | number:'1.0-0' }} FCFA</span>
+      </div>
+      <div class="summary-row">
+        <span>Économies groupées</span>
+        <span class="savings-text">-{{ savings | number:'1.0-0' }} FCFA</span>
+      </div>
+      <div class="summary-row">
+        <span>Livraison</span>
+        <span>Gratuite</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span>{{ total | number:'1.0-0' }} FCFA</span>
+      </div>
+      <a routerLink="/payment" class="btn btn-primary btn-full">Procéder au paiement</a>
+    </div>
+  </div>
+</div>

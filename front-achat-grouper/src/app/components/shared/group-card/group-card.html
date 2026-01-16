@@ -1,0 +1,17 @@
+<div class="group-card">
+  <h3 class="group-name">{{ group.name }}</h3>
+  <div class="group-info">
+    <div class="info-item">
+      <i class="fas fa-users"></i>
+      <span>{{ group.currentMembers }}/{{ group.maxMembers }} membres</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-clock"></i>
+      <span class="time-left">2 jours restants</span>
+    </div>
+  </div>
+  <div class="group-progress">
+    <div class="progress-bar" [style.width.%]="getProgress()"></div>
+  </div>
+  <button class="btn btn-primary btn-full" (click)="onJoin()">Rejoindre le groupe</button>
+</div>

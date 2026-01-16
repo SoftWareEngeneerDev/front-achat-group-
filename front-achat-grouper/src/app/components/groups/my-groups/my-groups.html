@@ -1,0 +1,31 @@
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Mes groupes d'achat</h1>
+    <p class="page-subtitle">Gérez vos participations aux groupes</p>
+  </div>
+</div>
+
+<div class="container my-groups-page">
+  <div class="stats-cards">
+    <div class="stat-card">
+      <i class="fas fa-users"></i>
+      <div class="stat-number">{{ activeGroups }}</div>
+      <div class="stat-label">Groupes actifs</div>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-check-circle"></i>
+      <div class="stat-number">{{ completedGroups }}</div>
+      <div class="stat-label">Groupes complétés</div>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-coins"></i>
+      <div class="stat-number">{{ totalSavings }} FCFA</div>
+      <div class="stat-label">Économies totales</div>
+    </div>
+  </div>
+
+  <div class="groups-section">
+    <h2>Groupes actifs</h2>
+    <p class="empty-state">Vous n'avez pas encore rejoint de groupe</p>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Tous les produits</h1>
+    <p class="page-subtitle">Découvrez toutes nos offres groupées</p>
+  </div>
+</div>
+
+<div class="container products-page">
+  <div class="filters">
+    <div class="filter-group">
+      <div class="filter-title">Catégories</div>
+      <div class="filter-options">
+        <div *ngFor="let category of categories"
+             class="filter-option"
+             [class.active]="selectedCategory === category"
+             (click)="selectCategory(category)">
+          {{ category }}
+        </div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-title">Prix</div>
+      <div class="filter-options">
+        <div *ngFor="let range of priceRanges"
+             class="filter-option"
+             [class.active]="selectedPriceRange === range"
+             (click)="selectPriceRange(range)">
+          {{ range }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="products-grid">
+    <p class="no-products">Produits en cours de chargement...</p>
+  </div>
+</div>
