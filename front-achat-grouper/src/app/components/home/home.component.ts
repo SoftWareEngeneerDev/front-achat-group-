@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
-import { LoaderComponent } from '../shared/loader/loader.component';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { ApiService } from '../../services/api.service';
 import { Product } from '../../models/product.model';
@@ -49,20 +48,14 @@ export class HomeComponent implements OnInit{
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.loadHomeData();
+    this.categories = this.getMockCategories();
+    this.trendingProducts = this.getMockProducts('trending');
+    this.popularProducts = this.getMockProducts('popular');
   }
-
-  loadHomeData(): void {
-  this.categories = this.getMockCategories();
-  this.trendingProducts = this.getMockProducts('trending');
-  this.popularProducts = this.getMockProducts('popular');
-  this.isLoading = false;
-}
 
   onSearch(): void {
     if (this.searchQuery.trim()) {
       console.log('Recherche:', this.searchQuery);
-      // Implémenter la logique de recherche
     }
   }
 
@@ -78,7 +71,6 @@ export class HomeComponent implements OnInit{
 
   onJoinGroup(productId: string): void {
     console.log('Rejoindre le groupe pour le produit:', productId);
-    // Implémenter la logique pour rejoindre un groupe
   }
 
   closeProductModal(): void {
@@ -86,7 +78,10 @@ export class HomeComponent implements OnInit{
     this.selectedProduct = null;
   }
 
-  // Données simulées
+  get modalTitle(): string {
+    return this.selectedProduct?.product?.name || 'Détails du produit';
+  }
+
   private getMockCategories(): Category[] {
     return [
       { id: '1', name: 'Informatique', icon: 'fas fa-laptop', productCount: 45 },
@@ -191,8 +186,4 @@ export class HomeComponent implements OnInit{
       product: { ...p.product, id: `${parseInt(p.product.id) + 3}` }
     }));
   }
-  get modalTitle(): string {
-  return this.selectedProduct?.product?.name || 'Détails du produit';
-}
-
 }
