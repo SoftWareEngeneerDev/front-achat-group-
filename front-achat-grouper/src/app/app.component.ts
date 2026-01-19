@@ -3,23 +3,17 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { LoaderComponent } from './components/shared/loader/loader.component';
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
     RouterOutlet,
-    ToastComponent,
-    LoaderComponent
+    ToastComponent
   ],
-  // TEMPLATE INLINE (pas de fichier .html séparé)
   template: `
     <!-- Toast/Notifications globales -->
     <app-toast></app-toast>
-    
-    <!-- Loader global -->
-    <app-loader></app-loader>
     
     <!-- Contenu principal avec routing -->
     <router-outlet></router-outlet>
@@ -29,16 +23,6 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
     :host {
       display: block;
       min-height: 100vh;
-    }
-    
-    /* Styles pour le loader */
-    app-loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
     }
     
     /* Styles pour les toasts */
